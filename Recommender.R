@@ -34,7 +34,7 @@ UserInfo <-function(){
   rawfile <- read.csv("raw.csv")
   rawuserinfo <- rawfile %>%group_by(userId) %>%summarise(gameCount = n(),totalPlaytime = sum(PlayTime))
   write.csv(rawuserinfo,"userInfo.csv",row.names =FALSE)
-}#양념 각 유저에 대한 정보
+}#각 유저에 대한 정보
 delUserInfo <-function(){
   setwd("C:/Users/KTH/Desktop/Capstone")
   InfoFile <- read.csv("userInfo.csv")
