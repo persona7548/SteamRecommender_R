@@ -5,7 +5,7 @@ import time
 from datetime import datetime
 from fake_useragent import UserAgent
 def saveUserData(steamID,userCount):
-    savef = open("C:/Users/KTH/Desktop/python/PC/read",'w')
+    savef = open("C:/Users/KTH/Desktop/read",'w')
     print(str(steamID))
     savef.write(str(steamID)+','+str(userCount)+'\n')
     savef.close()
@@ -18,7 +18,6 @@ def print_steam_crawl(steamID,ID_Range,fileNum):
         string_ID = str(steamID)
         ua = UserAgent()
         headers = {'User-Agent':str(ua.random)}
-        #headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36'}
         url = 'https://steamcommunity.com/profiles/'+string_ID+'/games/?tab=all&sort=playtime'
         try: #Private User Check
             html = requests.get(url,headers=headers).text
@@ -26,7 +25,7 @@ def print_steam_crawl(steamID,ID_Range,fileNum):
                 steamID = steamID-1
                 saveUserData(steamID,userCount)
                 now = datetime.now()
-                writeLog = open("C:/Users/KTH/Desktop/전공/python/log.txt",'a')
+                writeLog = open("C:/Users/KTH/Desktop/log.txt",'a')
                 writeLog.write('Error ID: '+str(steamID)+' Time: '+str(now)+'\n')
                 writeLog.close()
                 print("429 Error")
@@ -41,7 +40,7 @@ def print_steam_crawl(steamID,ID_Range,fileNum):
         if (str(SteamGame) != "[]" and 'hours_forever' in gameList):  #Private library Check
             userCount = userCount+1
             saveUserData(steamID,userCount)
-            f = open('C:/Users/KTH/Desktop/전공/python/PC/'+str(userCount)+'.csv', 'w')
+            f = open('C:/Users/KTH/Desktop/'+str(userCount)+'.csv', 'w')
             f.write('GameName,Id:'+ string_ID+'\n')
             for course in SteamGame:
                 try: #empty playtime Check
@@ -57,7 +56,7 @@ def print_steam_crawl(steamID,ID_Range,fileNum):
             saveUserData(steamID,userCount)
             continue
 
-f = open("C:/Users/KTH/Desktop/python/PC/read",'r')
+f = open("C:/Users/KTH/Desktop/read",'r')
 data = f.read()
 f.close()
 saveData = data.split(',')
@@ -66,7 +65,7 @@ fileSave = int(saveData[1])
 pages = 100000
 
 now = datetime.now()
-writeLog =  open("C:/Users/KTH/Desktop/python/log.txt",'a')
+writeLog =  open("C:/Users/KTH/Desktop/log.txt",'a')
 writeLog.write('Start ID: '+str(startID)+' Time: '+str(now)+'\n')
 writeLog.close()
 
